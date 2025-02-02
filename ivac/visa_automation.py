@@ -74,6 +74,14 @@ def automate_visa_application():
         return
     
     try:
+        # Wait for the popup and close it
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".close_button_selector")))
+        close_button = driver.find_element(By.CSS_SELECTOR, ".close_button_selector")  # Replace with the correct selector for the close button
+        close_button.click()
+        
+        # Wait for the form elements to be visible
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "mission")))
+
         for i in range(1, 4):  # Assuming 3 applicants
             web_file_key = f"applicant_{i}_web_file"
             name_key = f"applicant_{i}_name"
